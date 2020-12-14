@@ -140,6 +140,8 @@ def compute_weight():
                     if to_map != from_map:
                         # if we don't have datastructure create it.
                         distance = compute_distance_dumb_method(coordonateB[0],coordonateB[1],coordonateC[0],coordonateC[1])
+                        if distance == 0:
+                            print()
                         if data_structure_weight is None:
                             data_structure_weight = np.array([[from_map,to_map,distance]])
                         else:
@@ -260,9 +262,8 @@ def complete_mask_map2(mini_mapX):
                 
         if (mask_map[ref_point[0]+h,ref_point[1],0] != mini_map.nombre_mini_map):
             mask_map[ref_point[0]+h,ref_point[1],0] = mini_map.nombre_mini_map
-            mask_map[ref_point[0]+h,ref_point[1],2] = h
-            print("case1","0")
-            mask_map[ref_point[0]+h,ref_point[1],1] = 0 
+            mask_map[ref_point[0]+h,ref_point[1],2] = 0
+            mask_map[ref_point[0]+h,ref_point[1],1] = h
         
         # 2 ligne vertical droite
         if (mask_map[ref_point[0]+h,ref_point[3],0] != 0) and (mask_map[ref_point[0]+h,ref_point[3],0] != mini_map.nombre_mini_map):
@@ -280,17 +281,17 @@ def complete_mask_map2(mini_mapX):
                     compteur_vertical_B = 0
                     # create new link in LOW MAP.
                     x_coord_ref_low = int(h//20)
-                    y_coord_ref_low = int(L-1//20)
+                    y_coord_ref_low = int((L-1)//20)
                     xLINK_coord_ref_low = int(mask_map[ref_point[0]+h,ref_point[3],1]//20)
                     yLINK_coord_ref_low = int(mask_map[ref_point[0]+h,ref_point[3],2]//20)
                     to_map = int(mask_map[ref_point[0]+h,ref_point[3],0])
                     mini_mapX.add_link(str(x_coord_ref_low)+" "+str(y_coord_ref_low)+" "+str(xLINK_coord_ref_low)+" "+str(yLINK_coord_ref_low)+" "+str(to_map)+" ",0)
                     list_map[mask_map[ref_point[0]+h,ref_point[3],0]-1].add_link(str(xLINK_coord_ref_low)+" "+str(yLINK_coord_ref_low)+" "+str(x_coord_ref_low)+" "+str(y_coord_ref_low)+" "+str(mini_mapX.map_number),0)
 
-        if (mask_map[ref_point[0]+h,ref_point[1],0] != mini_map.nombre_mini_map):
-            mask_map[ref_point[0]+h,ref_point[1],0] = mini_map.nombre_mini_map
-            mask_map[ref_point[0]+h,ref_point[1],2] = h 
-            mask_map[ref_point[0]+h,ref_point[1],1] = L-1 
+        if (mask_map[ref_point[0]+h,ref_point[3],0] != mini_map.nombre_mini_map):
+            mask_map[ref_point[0]+h,ref_point[3],0] = mini_map.nombre_mini_map
+            mask_map[ref_point[0]+h,ref_point[3],2] = L-1
+            mask_map[ref_point[0]+h,ref_point[3],1] = h
 
     # for LOW MAP.
     compteur_horizontal_A = 0
@@ -326,27 +327,26 @@ def complete_mask_map2(mini_mapX):
 
         if (mask_map[ref_point[0],ref_point[1]+l,0] != mini_map.nombre_mini_map):
             mask_map[ref_point[0],ref_point[1]+l,0] = mini_map.nombre_mini_map
-            mask_map[ref_point[0],ref_point[1]+l,2] = 0 
-            print("case3","0",l)
-            mask_map[ref_point[0],ref_point[1]+l,1] = l 
+            mask_map[ref_point[0],ref_point[1]+l,2] = l
+            mask_map[ref_point[0],ref_point[1]+l,1] = 0
         
         # 4 ligne horizontal bas
         if (mask_map[ref_point[2],ref_point[1]+l,0] != 0) and (mask_map[ref_point[2],ref_point[1]+l,0] != mini_map.nombre_mini_map):
-            print("cas1")
+            print("cas4")
             # we need to check if this link is empty of full, if empty go link.
             if ma_map_global[ref_point[2],ref_point[1]+l] == 255:
-                print("cas1_link")
-                link = str(l)+" "+str(H-1)+" "+str(mask_map[ref_point[2],ref_point[1]+l,1])+" "+str(mask_map[ref_point[2],ref_point[1]+l,2])+" "+str(mask_map[ref_point[2],ref_point[1]+l,0])
+                print("cas4_link")
+                link = str(H-1)+" "+str(l)+" "+str(mask_map[ref_point[2],ref_point[1]+l,1])+" "+str(mask_map[ref_point[2],ref_point[1]+l,2])+" "+str(mask_map[ref_point[2],ref_point[1]+l,0])
                 mini_mapX.add_link(link,1)
-                reverse_link = str(mask_map[ref_point[2],ref_point[1]+l,1])+" "+str(mask_map[ref_point[2],ref_point[1]+l,2])+" "+str(l)+" "+str(H-1)+" "+str(mini_mapX.map_number)
+                reverse_link = str(mask_map[ref_point[2],ref_point[1]+l,1])+" "+str(mask_map[ref_point[2],ref_point[1]+l,2])+" "+str(H-1)+" "+str(l)+" "+str(mini_mapX.map_number)
                 list_map[mask_map[ref_point[2],ref_point[1]+l,0]-1].add_link(reverse_link,1)
 
                 compteur_horizontal_B += 1
                 if compteur_horizontal_B >= seuil:
                     compteur_horizontal_B = 0
                     # create new link in LOW MAP.
-                    x_coord_ref_low = int(l//20)
-                    y_coord_ref_low = int(H-1//20)
+                    x_coord_ref_low = int((H-1)//20)
+                    y_coord_ref_low = int(l//20)
                     xLINK_coord_ref_low = int(mask_map[ref_point[2],ref_point[1]+l,1]//20)
                     yLINK_coord_ref_low = int(mask_map[ref_point[2],ref_point[1]+l,2]//20)
                     to_map = int(mask_map[ref_point[2],ref_point[1]+l,0])
@@ -356,8 +356,8 @@ def complete_mask_map2(mini_mapX):
             
         if (mask_map[ref_point[2],ref_point[1]+l,0] != mini_map.nombre_mini_map):
             mask_map[ref_point[2],ref_point[1]+l,0] = mini_map.nombre_mini_map
-            mask_map[ref_point[2],ref_point[1]+l,2] = l 
-            mask_map[ref_point[2],ref_point[1]+l,1] = H-1 
+            mask_map[ref_point[2],ref_point[1]+l,2] = l
+            mask_map[ref_point[2],ref_point[1]+l,1] = H-1
 
 def rectangle_selection(event, x, y, flags, param):
     # grab references to the global variables
