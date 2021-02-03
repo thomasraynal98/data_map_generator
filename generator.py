@@ -4,7 +4,7 @@ import time
 import math as m 
 
 from mini_map import * 
-
+#pute
 EMPTY = 0
 OBSTACLE = 255
 
