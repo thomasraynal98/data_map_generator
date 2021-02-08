@@ -91,7 +91,7 @@ while x < len(list_path):
         print("Go through first map:", time.time() - start_time)
 
         print("################ Waypoint list number", str(nb_list_waypoints), "#################")
-        if nb_list_waypoints == len(list_path[x]): # There is len(list_path[x]) waypoint lists. If we went through all of them chaange map !
+        if nb_list_waypoints == len(list_path[x]): # There is len(list_path[x]) waypoint lists. If we went through all of them change map !
             x = x + 1
             break
 
@@ -143,7 +143,7 @@ while x < len(list_path):
                             if i >= len(list_path[x][nb_list_waypoints + ind]):
                                 i = 0
                                 ind = ind + 1
-                        # If ind > 1 it means that a all list of waypoints was jupped, so we can delete it
+                        # If ind > 1 it means that a all list of waypoints was jumped, so we can delete it
                         if ind > 1:
                             position_initial = nb_list_waypoints + 1
                             position_end = nb_list_waypoints + ind
@@ -200,7 +200,7 @@ while x < len(list_path):
                 # Osbtacle mooving in the same time
                 # First obstacle moves and then current position udpates or recalculates wheither the next postion is an obstacle or not
                 else:
-                    print("CURRENT CURRRENT", current_position)
+                    # print("CURRENT CURRRENT", current_position)
                     if current_position == goal:
                         low_map[current_position[0], current_position[1]] = 0
                         nb_list_waypoints = nb_list_waypoints + 1
@@ -265,7 +265,7 @@ while x < len(list_path):
                                     limit_i_right.append(titi)
                                     limit_j_right.append(tjtj)
 
-                        # # Working on this specific case : obstacle under current position
+                        # Working on this specific case : obstacle under current position
                         if limit_i_down and current_position[0] not in limit_i_down and current_position[0] < limit_i_down[0]:
                             testonca = []
                             for valuux in tempoo:
@@ -288,8 +288,7 @@ while x < len(list_path):
                                 tempoo = testouille[curr_pos_fatlist : last_pos_fatlist + 2]
                                 limit_j_down = []
 
-
-                        # # Working on this specific case : obstacle over current position
+                        # Working on this specific case : obstacle over current position
                         elif limit_i_up and current_position[0] not in limit_i_up and current_position[0] > limit_i_up[-1]:
                             testonca = []
                             for valuux in tempoo:
@@ -308,7 +307,7 @@ while x < len(list_path):
                                 tempoo = testouille[curr_pos_fatlist : last_pos_fatlist + 2]
                                 limit_j_up = []
 
-                        # # Working on this specific case : obstacle on the left of current position
+                        # Working on this specific case : obstacle on the left of current position
                         elif limit_j_left and current_position[1] not in limit_j_left and current_position[1] > limit_j_left[-1]:
                             
                             testonca = []
@@ -473,13 +472,13 @@ while x < len(list_path):
                         # last_position = list(list_path[x][nb_list_waypoints][i-1])
 
                         # move = [[ 1, 0 ], # go down
-                                # [ 0, 1 ], # go right
-                                # [ -1, 0 ], # go up
-                                # [ 0, -1 ], # go left
-                                # [-1, -1],
-                                # [ 1, -1],
-                                # [ -1, 1],
-                                # [ 1, 1 ]]
+                        #         [ 0, 1 ], # go right
+                        #         [ -1, 0 ], # go up
+                        #         [ 0, -1 ], # go left
+                        #         [-1, -1],
+                        #         [ 1, -1],
+                        #         [ -1, 1],
+                        #         [ 1, 1 ]]
 
                         # move_down =    [[ 1, 0 ],
                         #                 [ 1, -1],
@@ -509,7 +508,7 @@ while x < len(list_path):
                         # if [list(current_position)[0] - last_position[0], list(current_position)[1] - last_position[1]] == [0, -1]:
                         #     move = move_left
 
-                        # WARNING : if low_map[mov] == 1 for mov in movin_to: remove it from list
+                        # # WARNING : if low_map[mov] == 1 for mov in movin_to: remove it from list
                         # movin_to = [ [last_position[0] + mov[0], last_position[1] + mov[1]] for mov in move ]
                         # for val in movin_to:
                         #     #####################################################
@@ -538,6 +537,7 @@ while x < len(list_path):
 
                         # NO DRIFTING if current position is one step before goal because arf problems ! Goal is reach but nb_list_waypoint isn't updated
                         #region DRIFTING ACTIVED
+                        # recalculating_time = time.time()
                         # if current_position != list_path[x][nb_list_waypoints][-2]:
                         #     if new_current_position != current_position:
                         #         # print("THERE IS SOME DRIFTING CHIEF")
@@ -574,6 +574,7 @@ while x < len(list_path):
                         #         # plt.show()
                                 
                         #         list_path[x][nb_list_waypoints] = path
+                        #         # print("RECALCULTED TIME :", time.time() - recalculating_time)
                         #         break
                             #endregion
                         #endregion
