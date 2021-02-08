@@ -367,7 +367,7 @@ def low_pathfinding(dijkstra_list : list):
                     connection_map.append(test)
 
             window_name = "mini_map_" + str(map_number)
-            map_name = "result/image/LOW/minimap_LOW_" + map_number + ".jpg"
+            map_name = "PATHPLANNING/result/image/LOW/minimap_LOW_" + map_number + ".jpg"
             image = cv2.imread(map_name)
             cv2.namedWindow(window_name, 0)
             cv2.imshow(window_name, image)

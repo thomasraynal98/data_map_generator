@@ -40,7 +40,7 @@ class Obstacle:
         return list_obstacle
 
 line_list = []
-name = "result/path/list_path_result_HD.txt"
+name = "PATHPLANNING/result/path/list_path_result_HD.txt"
 f = open(name,"r")
 lines = f.readlines()
 line_list.append(lines)
@@ -65,7 +65,7 @@ while x < len(list_path):
         break
 
     map_number = x + 1
-    name_minimap = "result/map/result/map_" + str(map_number) + "_result_HD.txt"
+    name_minimap = "PATHPLANNING/result/map/result/map_" + str(map_number) + "_result_HD.txt"
     # low_map = LOW_map_from_txt(name_minimap)
     low_map = input_from_txt(name_minimap)
     print("FIRST time printing Low Map")
