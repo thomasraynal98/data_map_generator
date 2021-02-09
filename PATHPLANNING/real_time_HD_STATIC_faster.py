@@ -8,6 +8,20 @@ import numpy as np
 import random
 import time
 
+def import_image_and_transform(path):
+    #variable
+    seuil = 150
+
+    image = cv2.imread(path,0)
+    la_map = np.zeros((image.shape[0],image.shape[1]),dtype=np.uint8)
+    for i in list(range(image.shape[0])):
+        for j in list(range(image.shape[1])):
+            if image[i,j] < seuil:
+                la_map[i,j] = 1
+            else:
+                la_map[i,j] = 0
+
+    return la_map
 
 obstacle_mode = False
 mode_camera = True
@@ -66,8 +80,9 @@ if multi_map == True:
 if multi_map == False:
     # Pathfinding for only one map
     window_name = "mini_map_1"
-    # map_name = "PATHPLANNING//image/big_map/bigmap_" + map_number + ".jpg"
-    map_name = "PATHPLANNING/result/image/LOW/minimap_LOW_1.jpg"
+    map_name = "PATHPLANNING/result/image/big_map/bigmap_1.png"
+    # map_name = "PATHPLANNING/result/image/LOW/minimap_LOW_1.jpg"
+
     image = cv2.imread(map_name)
     cv2.namedWindow(window_name, 0)
     cv2.imshow(window_name, image)
@@ -85,6 +100,21 @@ if multi_map == False:
 
     # Stock extend paths from all maps 
     sum_extend = []
+
+    # marre = import_image_and_transform(map_name)
+
+    # matrix = np.array(map_path)
+
+    # name = "PATHPLANNING/result/map/result/bigmap_result.txt"
+    
+    # with open(name, 'w') as f:
+    #     for item in matrix:
+    #         for i in range(len(item)):
+    #             if i == len(map_path[0]) - 1:
+    #                 f.write("%s " % item[i])
+    #                 f.write("\n")
+    #             else:
+    #                 f.write("%s " % item[i])
 
     # name_minimap = "PATHPLANNING/big_map/" + map_number + ".txt"
     name_minimap = "PATHPLANNING/result/map/map_1_L.txt"
