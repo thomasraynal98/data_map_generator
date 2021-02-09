@@ -319,7 +319,8 @@ def plot_map(mapeeeuh : list):
 
     plt.clf()
     plt.imshow(n, cmap='tab20', vmin=1, vmax=20)
-    plt.pause(0.0005)
+    # plt.pause(0.0005)
+    plt.pause(1)
     # plt.show()
     return plt.plot()
 
@@ -1157,7 +1158,7 @@ def HD_pathfinding(dijkstra_list : list, start_X: int, start_Y: int):
                                 temp = [ii, jj]
                                 path_low_modulo2.append(temp)
                 
-        print("1over2 :", path_low_modulo2)
+        # print("1over2 :", path_low_modulo2)
         
         height = 0
         for i in map_zero_one_hd:
@@ -1230,7 +1231,7 @@ def HD_pathfinding(dijkstra_list : list, start_X: int, start_Y: int):
     # for e in global_path_HDmap:
     #     print(e)
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
 
     #region DIJKSTRA : return fastest nodes in big graph ['1','4','5','6']  
 
@@ -1279,10 +1280,10 @@ def HD_pathfinding(dijkstra_list : list, start_X: int, start_Y: int):
     #region pathfinding between maps
     ################ LAUNCH THIS PART without low ####################
     # "FAKE" Dijkstra's return:
-    # dijkstra_list = ['1', '2', '3']
+    dijkstra_list = ['1', '2', '3']
 
     # # low_pathfinding(dijkstra_list)
-    # HD_pathfinding(dijkstra_list, 4, 4)
+    HD_pathfinding(dijkstra_list, 4, 4)
     ##################################################################
 
     #endregion
