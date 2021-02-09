@@ -332,8 +332,7 @@ def Astar_from_map(mapeuuuh : list, start : list, end : list):
 
     return path
 
-def low_pathfinding(dijkstra_list : list):
-    
+def low_pathfinding(dijkstra_list : list, start_X: int, start_Y: int):
     line_list = []
 
     # Stock paths from all maps 
@@ -347,7 +346,7 @@ def low_pathfinding(dijkstra_list : list):
         
         if index == 0:
             map_number = i
-            name = "result/link/link_" + map_number + "_L.txt"
+            name = "PATHPLANNING/result/link/link_" + map_number + "_L.txt"
             f = open(name,"r")
             lines = f.readlines()
             line_list.append(lines)
@@ -395,8 +394,8 @@ def low_pathfinding(dijkstra_list : list):
         
             cv2.waitKey(0)
 
-            start_X = input("Please write the X coordinate of your starting point : ")
-            start_Y = input("Please write the Y coordinate of your starting point : ")
+            # start_X = input("Please write the X coordinate of your starting point : ")
+            # start_Y = input("Please write the Y coordinate of your starting point : ")
 
             start = [int(start_X), int(start_Y)]
 
@@ -404,7 +403,7 @@ def low_pathfinding(dijkstra_list : list):
             # print("End coordinates :", reversed_end)
 
 
-            name_minimap = "result/map/map_" + map_number + "_L.txt"
+            name_minimap = "PATHPLANNING/result/map/map_" + map_number + "_L.txt"
             # low_map = LOW_map_from_txt(name_minimap)
             # print("low map:\n", low_map)
 
@@ -524,7 +523,7 @@ def low_pathfinding(dijkstra_list : list):
 
             matrix = np.array(map_path)
 
-            name = "result/map/result/map_" + str(map_number) + "_result_L.txt"
+            name = "PATHPLANNING/result/map/result/map_" + str(map_number) + "_result_L.txt"
             
             with open(name, 'w') as f:
                 for item in matrix:
@@ -543,7 +542,7 @@ def low_pathfinding(dijkstra_list : list):
 
         elif index == len(dijkstra_list)-1:
             map_number = i
-            name = "result/link/link_" + map_number + "_L.txt"
+            name = "PATHPLANNING/result/link/link_" + map_number + "_L.txt"
             f = open(name,"r")
             lines = f.readlines()
             line_list.append(lines)
@@ -567,7 +566,7 @@ def low_pathfinding(dijkstra_list : list):
                     connection_map[i][j] = int(connection_map[i][j])
 
             window_name = "mini_map_" + str(map_number)
-            map_name = "result/image/LOW/minimap_LOW_" + map_number + ".jpg"
+            map_name = "PATHPLANNING/result/image/LOW/minimap_LOW_" + map_number + ".jpg"
             image = cv2.imread(map_name)
             cv2.namedWindow(window_name, 0)
             cv2.imshow(window_name, image)
@@ -603,7 +602,7 @@ def low_pathfinding(dijkstra_list : list):
             # print("Start coordinates :", reversed_start)
             # print("Goal coordinates :", end)
 
-            name_minimap = "result/map/map_" + map_number + "_L.txt"
+            name_minimap = "PATHPLANNING/result/map/map_" + map_number + "_L.txt"
             low_map = LOW_map_from_txt(name_minimap)
 
             map_zero_one = map_to_ZeroOne(low_map)
@@ -700,7 +699,7 @@ def low_pathfinding(dijkstra_list : list):
 
             matrix = np.array(map_path)
 
-            name = "result/map/result/map_" + str(map_number) + "_result_L.txt"
+            name = "PATHPLANNING/result/map/result/map_" + str(map_number) + "_result_L.txt"
             
             with open(name, 'w') as f:
                 for item in matrix:
@@ -722,7 +721,7 @@ def low_pathfinding(dijkstra_list : list):
 
             matrix = np.array(list_path_map)
 
-            name = "result/path/list_path_result_L.txt"
+            name = "PATHPLANNING/result/path/list_path_result_L.txt"
             
             with open(name, 'w') as f:
                 for item in matrix:
@@ -809,7 +808,7 @@ def low_pathfinding(dijkstra_list : list):
 
         else:
             map_number = i
-            name = "result/link/link_" + map_number + "_L.txt"
+            name = "PATHPLANNING/result/link/link_" + map_number + "_L.txt"
             f = open(name,"r")
             lines = f.readlines()
             line_list.append(lines)
@@ -871,7 +870,7 @@ def low_pathfinding(dijkstra_list : list):
 
             # print("Start coordinates :", start)
             # print("Goal coordinates :", reversed_end)
-            name_minimap = "result/map/map_" + map_number + "_L.txt"
+            name_minimap = "PATHPLANNING/result/map/map_" + map_number + "_L.txt"
             low_map = LOW_map_from_txt(name_minimap)
 
             map_zero_one = map_to_ZeroOne(low_map)
@@ -964,7 +963,7 @@ def low_pathfinding(dijkstra_list : list):
 
             matrix = np.array(map_path)
 
-            name = "result/map/result/map_" + str(map_number) + "_result_L.txt"
+            name = "PATHPLANNING/result/map/result/map_" + str(map_number) + "_result_L.txt"
             
             with open(name, 'w') as f:
                 for item in matrix:
@@ -978,12 +977,13 @@ def low_pathfinding(dijkstra_list : list):
             old_end = end
             connection_map = []
 
-def HD_pathfinding(dijkstra_list : list):
+def HD_pathfinding(dijkstra_list : list, start_X: int, start_Y: int):
     
     print("\nHD_pathfinding")
 
-    path_low, extend_path_low = low_pathfinding(dijkstra_list)
-
+    path_low, extend_path_low = low_pathfinding(dijkstra_list, start_X, start_Y)
+    
+    print("DONE\n")
     for i in range(len(path_low)):
         path_low[i] = [list(ele) for ele in path_low[i]]
     
@@ -1003,16 +1003,13 @@ def HD_pathfinding(dijkstra_list : list):
 
         #region HD MAP IMPORT
 
-        name_hdmap = "result/map/map_" + str(map_number) + "_HD.txt"
+        name_hdmap = "PATHPLANNING/result/map/map_" + str(map_number) + "_HD.txt"
 
         hd_map = LOW_map_from_txt(name_hdmap)
 
         map_zero_one_hd = map_to_ZeroOne(hd_map)
         plot_map(map_zero_one_hd)
         
-
-
-
         ##################################################################
         # COEFF TO EXTEND OBSTACLES SIZE ! 
         # If robot is 60x60 cm and we want a wall security range of 30cm we need to set the coeff to 12 
@@ -1020,10 +1017,6 @@ def HD_pathfinding(dijkstra_list : list):
         map_zero_one_hd = matrix_change(map_zero_one_hd, 12)
         plot_map(map_zero_one_hd)
         ##################################################################
-
-
-
-
 
         #endregion
 
@@ -1201,11 +1194,11 @@ def HD_pathfinding(dijkstra_list : list):
             for coord in path:
                 map_zero_one_hd[coord[0]][coord[1]] = 9
         
-        plot_map(map_zero_one_hd)
+        # plot_map(map_zero_one_hd)
         
         matrix = np.array(map_zero_one_hd)
 
-        name = "result/map/result/map_" + str(map_number) + "_result_HD.txt"
+        name = "PATHPLANNING/result/map/result/map_" + str(map_number) + "_result_HD.txt"
         
         with open(name, 'w') as f:
             for item in matrix:
@@ -1228,7 +1221,7 @@ def HD_pathfinding(dijkstra_list : list):
     
     # matrix = np.array(to_save_txt)
 
-    name = "result/path/list_path_result_HD.txt"
+    name = "PATHPLANNING/result/path/list_path_result_HD.txt"
     
     with open(name, 'w') as f:
         for item in to_save_txt:
@@ -1237,7 +1230,7 @@ def HD_pathfinding(dijkstra_list : list):
     # for e in global_path_HDmap:
     #     print(e)
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
     #region DIJKSTRA : return fastest nodes in big graph ['1','4','5','6']  
 
@@ -1284,12 +1277,13 @@ if __name__ == "__main__":
     #endregion
 
     #region pathfinding between maps
-
+    ################ LAUNCH THIS PART without low ####################
     # "FAKE" Dijkstra's return:
-    dijkstra_list = ['1', '2', '3']
+    # dijkstra_list = ['1', '2', '3']
 
-    # low_pathfinding(dijkstra_list)
-    HD_pathfinding(dijkstra_list)
+    # # low_pathfinding(dijkstra_list)
+    # HD_pathfinding(dijkstra_list, 4, 4)
+    ##################################################################
 
     #endregion
 
