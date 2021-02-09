@@ -415,13 +415,13 @@ while x < len(list_path):
                                 
                                 # Here we want to change values only between current and goal coordinates
 
-                                temp = [ (i,j) for i in range(len(low_map)) for j in range(len(low_map[i])) if [i, j] != goal and low_map[i,j] == 9]
+                                temp = [(i, j) for i in range(len(low_map)) for j in range(len(low_map[i])) if [i, j] != goal and low_map[i,j] == 9]
 
                                 # print(temp)
                                 for value in range(len(temp)):
                                     low_map[temp[value]] = 0
 
-                                temp = np.where(low_map == 5) 
+                                temp = np.where(low_map == 5)
                                 low_map[temp] = 0
 
                                 # for val in low_map:
