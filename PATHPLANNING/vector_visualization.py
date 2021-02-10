@@ -83,6 +83,10 @@ def plot_vector(vectors : list, starting_coord : list, end_coordinates : list, l
     angle_degree = 360 - (angle * 180 / np.pi)
     angle_degree = angle_degree % 360
 
+    print("res:", res)
+
+    print("angle:", angle_degree)
+
     distance = np.sqrt((res[0] - 0)**2 + (res[1] - 0)**2)
 
     # print(angle_degree)
@@ -90,7 +94,6 @@ def plot_vector(vectors : list, starting_coord : list, end_coordinates : list, l
     # save_to_file.append([angle_degree, distance])
 
     # save_to_file = np.array(save_filooo, dtype=int)
-
 
 
     plt.clf()

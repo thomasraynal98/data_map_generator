@@ -24,8 +24,8 @@ def import_image_and_transform(path):
     return la_map
 
 obstacle_mode = False
-mode_camera = True
-multi_map = False
+mode_camera = False
+multi_map = True
 
 # CHANGE THE OBSTACLE TO A SQUARE 20 TIMES BIGGER 
 class Obstacle:
