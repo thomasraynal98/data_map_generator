@@ -24,81 +24,116 @@ SALOON = (460, 290)
 
 ##############################################################################
 
+
+def matrix_change_2(low_map_array, extend_coeff: int):
+    """
+        DESCRIPTION: transform map and add security.
+        INPUT:
+            * low_map_array = numpy[nxm] get map with 0 (empty), 1 (full)
+        OUTPUT:
+            * safe_map = numpy[nxm] return map with 0 (empty), 1 (full), 2 (safe)
+    """
+    extend_coeff_i = extend_coeff
+    extend_coeff_j = extend_coeff
+    safe_map = np.zeros((low_map_array.shape[0],low_map_array.shape[1]))
+
+    for i in list(range(low_map_array.shape[0])):
+        for j in list(range(low_map_array.shape[1])):
+            # each cell, draw a box all around.
+            
+            if low_map_array[i,j] == 1:
+                # detect bordure.
+                ii = -(extend_coeff//2)
+                while ii < (extend_coeff//2):
+                    jj = -(extend_coeff//2)
+                    while jj < (extend_coeff//2):
+                        if (i+ii >= 0 and i+ii < low_map_array.shape[0]) and (j+jj >= 0 and j+jj < low_map_array.shape[1]):
+                            if (ii == 0) and (jj == 0):
+                                # a now wall.
+                                safe_map[i+ii,j+jj] = 1
+                            elif (low_map_array[i+ii,j+jj] == 0):
+                                # a safe border when case is empty
+                                safe_map[i+ii,j+jj] = 2 # 2
+                        jj += 1
+                    ii += 1
+
+    return safe_map
  
 
-# grid = np.array([
+grid = np.array([
 
-#     [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-#     [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-#     [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-#     [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-#     [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-#     [0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-#     [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1],
 
-#     [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
 
-#     [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
 
-#     [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
 
-#     [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-#     [1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
 
-#     [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
 
-#     [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-#     [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0],
 
-#     [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
 
-#     [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
 
-#     [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
 
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
 
 
-name_minimap = "PATHPLANNING/result/map/bigmap.txt"
+# name_minimap = "PATHPLANNING/result/map/map_1_HD.txt"
 
-print("NUMPY ARRAY")
-low_map = input_from_txt(name_minimap)
+# print("NUMPY ARRAY")
+# low_map = input_from_txt(name_minimap)
 
-print("low map:\n", low_map)
+# print("low map:\n", low_map)
 
-grid = array_map_to_ZeroOne(low_map)
+# grid = array_map_to_ZeroOne(low_map)
 
-print("map_zero_one:\n", grid)
+# print("map_zero_one:\n", grid)
 
-plot_map(grid)
+# plot_map(grid)
 
-grid = matrix_change(grid, 12)
-plot_map(grid)
-print()
+# grid = matrix_change(grid, 12)
+# plot_map(grid)
+# print()
 
+grid = matrix_change_2(grid, 12)
 
 
 # start point and goal
 
-start = ELEVATOR
+# start = ELEVATOR
 
-goal = BIOLAB
+# goal = BIOLAB
 
 
 
-# start = (0,0)
+start = (0,0)
 
-# goal = (0,19)
+goal = (0,19)
 
 
 ##############################################################################
@@ -113,13 +148,12 @@ def heuristic(a, b):
 
     return np.sqrt((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2)
 
- 
-
 ##############################################################################
 
 # path finding function
 
 ##############################################################################
+
 
 def astar(array, start, goal):
 
@@ -144,10 +178,15 @@ def astar(array, start, goal):
 
         close_set.add(current)
         for i, j in neighbors:
-            neighbor = current[0] + i, current[1] + j            
+            neighbor = current[0] + i, current[1] + j
             tentative_g_score = gscore[current] + heuristic(current, neighbor)
-
+            
             if 0 <= neighbor[0] < array.shape[0]:
+                if 0 <= neighbor[1] < array.shape[1]: 
+                    if array[neighbor[0]][neighbor[1]] == 2:
+                        tentative_g_score += 10
+
+            elif 0 <= neighbor[0] < array.shape[0]:
                 if 0 <= neighbor[1] < array.shape[1]:                
                     if array[neighbor[0]][neighbor[1]] == 1:
                         continue
