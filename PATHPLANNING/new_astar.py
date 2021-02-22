@@ -121,6 +121,7 @@ grid = np.array([
 # print()
 
 grid = matrix_change_2(grid, 12)
+# print(grid)
 
 
 # start point and goal
@@ -244,7 +245,7 @@ for i in (range(0,len(route))):
 
 fig, ax = plt.subplots(figsize=(20,20))
 
-ax.imshow(grid, cmap=plt.cm.Dark2)
+ax.imshow(grid, cmap='BrBG')
 
 ax.scatter(start[1], start[0], marker = "*", color = "yellow", s = 200)
 
