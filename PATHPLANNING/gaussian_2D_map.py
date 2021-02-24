@@ -36,3 +36,24 @@ def calc_grid_map_config(ox, oy, xyreso):
     yw = int(round((maxy - miny) / xyreso))
 
     return minx, miny, maxx, maxy, xw, yw
+
+
+
+xyreso = 1  # xy grid resolution
+STD = 2.0  # standard diviation for gaussian distribution
+
+ox = index_wall_X
+oy = index_wall_Y
+
+gmap, minx, maxx, miny, maxy = generate_gaussian_grid_map(
+    ox, oy, xyreso, STD)
+
+grid = np.array(gmap)
+
+grid[ox, oy] = 1
+
+
+plt.figure(figsize=(5,5))
+plt.imshow(grid, cmap=plt.cm.Blues)
+plt.axis("equal")
+plt.show()

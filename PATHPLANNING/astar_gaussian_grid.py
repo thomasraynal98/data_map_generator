@@ -108,7 +108,7 @@ def calc_grid_map_config(ox, oy, xyreso):
 ##############################################################################
 
 xyreso = 1  # xy grid resolution
-STD = 5.0  # standard diviation for gaussian distribution
+STD = 2.0  # standard diviation for gaussian distribution
 
 #for i in range(5):
     # ox = np.around((np.random.rand(4) - 0.5) * 10.0)
@@ -153,7 +153,7 @@ plt.show()
 ##############################################################################
 
 def heuristic(a, b):
-
+    
     return np.sqrt((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2)
 
 
@@ -186,7 +186,7 @@ def astar(array, start, goal):
         close_set.add(current)
         for i, j in neighbors:
             neighbor = current[0] + i, current[1] + j
-            tentative_g_score = (gscore[current] + heuristic(current, neighbor)) + (grid[current])
+            tentative_g_score = (gscore[current] + heuristic(current, neighbor)) + (array[current] * 100)
 
             # print(f"GSCORE OF CURRENT POSITION {gscore[current]}")
             
